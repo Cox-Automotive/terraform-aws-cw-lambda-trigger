@@ -19,7 +19,7 @@ data "null_data_source" "name" {
   }
 }
 
-ata "null_data_source" "arn" {
+data "null_data_source" "arn" {
   inputs = {
     pattern_based  = "${element(concat(aws_cloudwatch_event_rule.pattern_based.*.arn, list("")), 0)}"
     schedule_based = "${element(concat(aws_cloudwatch_event_rule.schedule_based.*.arn, list("")), 0)}"
@@ -42,7 +42,7 @@ resource "aws_clouwatch_event_target" "scope" {
 resource "aws_lambda_permission" "trigger" {
   statement_id  = "cw-trigger_${var.function_name}"
   action        = "${var.lambda_action}"
-  function_name = "${var.lambda_function_name}"
+  function_name = "${var.function_name}"
   principal     = "events.amazonaws.com"
   source_arn    = "${data.null_data_source.rule.outputs["arn"]}"
 }
