@@ -33,7 +33,7 @@ data "null_data_source" "rule" {
   }
 }
 
-resource "aws_clouwatch_event_target" "scope" {
+resource "aws_cloudwatch_event_target" "scope" {
   target_id = "cw-target_${var.function_name}"
   rule      = "${data.null_data_source.rule.outputs["name"]}"
   arn       = "${var.function_arn}"
