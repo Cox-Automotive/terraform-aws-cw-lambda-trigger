@@ -1,13 +1,13 @@
 resource "aws_cloudwatch_event_rule" "schedule_based" {
   count               = "${var.mode == "schedule_based" ? 1 : 0}"
-  name                = "cw-rule-schedule_${var.function_name}"
+  name                = "${var.rule_name}"
   description         = "Schedule based CloudWatch rule for ${var.function_name}"
   schedule_expression = "${var.schedule_expression}"
 }
 
 resource "aws_cloudwatch_event_rule" "pattern_based" {
   count         = "${var.mode == "pattern_based" ? 1 : 0}"
-  name          = "cw-rule-pattern_${var.function_name}"
+  name          = "${var.rule_name}"
   description   = "Pattern based CloudWatch rule for ${var.function_name}"
   event_pattern = "${var.event_pattern}"
 }
@@ -34,14 +34,14 @@ data "null_data_source" "rule" {
 }
 
 resource "aws_cloudwatch_event_target" "scope" {
-  target_id = "cw-target_${var.function_name}"
+  target_id = "${var.rule_name}"
   rule      = "${data.null_data_source.rule.outputs["name"]}"
   arn       = "${var.function_arn}"
   input     = "${var.target_input}"
 }
 
 resource "aws_lambda_permission" "trigger" {
-  statement_id  = "cw-trigger_${var.function_name}"
+  statement_id  = "${var.rule_name}"
   action        = "${var.lambda_action}"
   function_name = "${var.function_name}"
   principal     = "events.amazonaws.com"

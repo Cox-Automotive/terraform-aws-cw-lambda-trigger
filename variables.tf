@@ -16,6 +16,11 @@ variable "mode" {
   description = "(Required) Must be 'schedule_based' if providing a schedule_expression or 'pattern_based' if providing an event_pattern."
 }
 
+variable "rule_name" {
+  type        = "string"
+  description = "(Required) Unique identifier to be used when constructing the event rule name."
+}
+
 #-------------------------------------------------------------------------------
 # OPTIONAL VARIABLES
 #-------------------------------------------------------------------------------
