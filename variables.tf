@@ -16,6 +16,11 @@ variable "mode" {
   description = "(Required) Must be 'schedule_based' if providing a schedule_expression or 'pattern_based' if providing an event_pattern."
 }
 
+variable "rule_name" {
+  type        = "string"
+  description = "(Required) Unique identifier to be used when constructing the event rule name."
+}
+
 #-------------------------------------------------------------------------------
 # OPTIONAL VARIABLES
 #-------------------------------------------------------------------------------
@@ -34,5 +39,11 @@ variable "schedule_expression" {
 variable "event_pattern" {
   type        = "string"
   description = "(Required if mode is `pattern_based`) JSON object describing the CloudWatch event pattern."
+  default     = ""
+}
+
+variable "target_input" {
+  type        = "string"
+  description = "JSON object describing the CloudWatch event target input."
   default     = ""
 }
