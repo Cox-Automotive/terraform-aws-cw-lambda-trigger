@@ -37,6 +37,7 @@ resource "aws_cloudwatch_event_target" "scope" {
   target_id = "cw-target_${var.function_name}"
   rule      = "${data.null_data_source.rule.outputs["name"]}"
   arn       = "${var.function_arn}"
+  input     = "${var.target_input}"
 }
 
 resource "aws_lambda_permission" "trigger" {

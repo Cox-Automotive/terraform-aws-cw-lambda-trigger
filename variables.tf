@@ -36,3 +36,9 @@ variable "event_pattern" {
   description = "(Required if mode is `pattern_based`) JSON object describing the CloudWatch event pattern."
   default     = ""
 }
+
+variable "target_input" {
+  type        = "string"
+  description = "JSON object describing the CloudWatch event target input."
+  default     = ""
+}
